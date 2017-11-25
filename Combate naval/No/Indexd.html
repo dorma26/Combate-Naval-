@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>Carrera</title>
+    <style>
+       .body {
+           padding-top: 40px;
+           padding-left: 40px;
+       }
+
+       img#coche1 {
+          position: absolute;
+       }
+
+   </style>
+</head>
+<body>
+    <div class="body">
+  <img id="coche1" src="vuee.png">
+    </div>
+
+     <script>
+
+      window.onload=function(){document.onkeydown=mover};
+
+    function mover(objeto) {
+
+    var tecla = objeto.which;
+    var situacionY = document.getElementById("coche1").offsetLeft;
+
+        switch (tecla){
+            case 37 :   
+                coche1.style.left = situacionY-220+"px" ; break;
+            case 39 :  
+                coche1.style.left = situacionY-180+"px" ;break;
+        default :alert("Se ha equivocado, debe pulsar las flechas del teclado");
+        }
+    }
+
+  </script>
+
+</body>
+</html>

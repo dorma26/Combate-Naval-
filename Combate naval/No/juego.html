@@ -1,0 +1,84 @@
+<html>
+<title>efecto mover imagen con el teclado</title>
+<HEAD>
+<script type="text/javascript">
+
+n = (document.layers) ? 1 : 0;
+ie = (document.all) ? 1 : 0;
+function moveImage() {
+if (n) {
+block = document.blockDiv;
+}
+if (ie) {
+block = blockDiv.style;
+}
+block.xpos = parseInt(block.left);
+block.active = 0;
+document.onkeydown = keyDown;
+document.onkeyup = keyUp;
+if (n) {
+document.captureEvents(Event.keydown | Event.keyup); 
+   }
+}
+function keyDown(e) {
+if (n) {
+var nKey = e.which;
+var ieKey = 0;
+}
+if (ie) {
+var ieKey = event.keyCode;
+var nKey = 0;
+}
+if ((nKey == 97 || ieKey == 65) && !block.active) {   
+block.active = 1;
+slideLeft();
+}
+if ((nKey == 100 || ieKey == 68) && !block.active) {   
+block.active = 1;
+slideRight();
+   }
+}
+function keyUp(e) {
+if (n) {
+var nKey = e.which;
+var ieKey = 0;
+}
+if (ie) {
+var ieKey = event.keyCode;
+var nKey = 0;
+}
+if ((nKey == 97 || ieKey == 65 || nKey == 100 || ieKey == 68))
+block.active = 0;
+}
+function slideRight() {
+if (block.active) {
+block.xpos += 5;
+block.left = block.xpos;
+status = block.xpos;
+setTimeout("slideRight()", 25);
+   }
+}
+function slideLeft() {
+if (block.active) {
+block.xpos -= 5;
+block.left = block.xpos;
+status = block.xpos;
+setTimeout("slideLeft()", 25);
+   }
+}
+//  End -->
+</script>
+</HEAD>
+<!-- STEP TWO: Insert the onLoad event handler into your BODY tag  -->
+<BODY OnLoad="moveImage()">
+<!-- STEP THREE: Copy this code into the BODY of your HTML document  -->
+<!-- This script and many more are available free online at -->
+<!-- The JavaScript Source!! http://javascript.internet.com -->
+<div id="blockDiv" STYLE="position: absolute; left: 317; top: 127; width: 137; height: 121"> 
+<img src="vuee.png"></div>
+<center>
+Usa la tecla <b>A</b> para mover la imagen hacia la izquierda, <b>D</b> para moverla hacia la derecha.
+<center>
+ 
+</body>
+</html> -->

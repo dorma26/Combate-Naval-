@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<meta charset="UTF-8">
+
+<script>
+
+var x=200, y=400;//coordenadas iniciales de la imagen
+var xDisparo=200, yDisparo=400;
+var x_nave=10, y_nave=10;
+var temporizador;
+var disparado=false;
+//var movimientoNave=false;
+
+function play () {
+  whichButton(event);
+  nave_enemiga();
+}
+
+function lienzo(){
+
+var c=document.getElementById("myCanvas");
+var ctx=c.getContext("2d");
+var img=document.getElementById("ima");
+var imge=document.getElementById("disparo");
+var nave = document.getElementById("nave_enemiga");
+ctx.clearRect(0,0,500,500);//limpia todo el canvas 
+ctx.drawImage(img,x,y);//dibuja la imagen
+ctx.drawImage(imge,xDisparo,yDisparo);//dibuja la imagen
+ctx.drawImage(nave,x_nave,y_nave);//dibuja la imagen
+
+}
+
+//cuando presione una tecla
+function whichButton(event){
+  
+	if(event.keyCode=='39'){//si la tecla presionada es direccional derecho
+		x+=5;//mueve la nave 5 pixeles a la derecha
+		xDisparo+= (disparado)?0:+5;
+		lienzo();
+	}
+
+	if(event.keyCode=='37'){//si la tecla presionada es direccional izquierdo
+		x-=5;//mueve la nave 5 pixeles a la izquierda
+		xDisparo+= (disparado)?0:-5;
+		lienzo();
+	}
+
+	if(x < 0){//aporta límites al recorrido de la imagen 
+		x=0;
+	}
+
+	if(x > 390){//aporta límites al recorrido de la imagen
+		x=390;
+	}
+
+  if(xDisparo < 0){//aporta límites al recorrido de la imagen 
+    xDisparo=0;
+  }
+
+  if(xDisparo > 390){//aporta límites al recorrido de la imagen
+    xDisparo=390;
+  }
+
+	if(event.keyCode=='13') {
+		//disparar();
+    if (disparado==false) {
+      disparar();
+    } else{
+      alert("Espera que explote el disparo");
+    };
+  }
+
+}
+
+function moverDisparo(){//Falta separar el movimiento del torpedo con el barco
+
+  lienzo();
+  yDisparo -= 10;
+  obj=document.getElementById("disparo");
+  //obj.style.left=xDisparo;     
+  obj.style.top=yDisparo +"px";
+  	if (yDisparo < 10){
+    	clearInterval(temporizador);
+  	}
+}
+
+function disparar () {//Falta separar el movimiento del torpedo con el barco
+  disparado=true;
+	//xDisparo = x;
+  yDisparo = y;
+  obj=document.getElementById("disparo");
+  //obj.style.left=xDisparo;     
+  obj.style.top=yDisparo -"px";
+  temporizador=setInterval("moverDisparo()",200);
+}
+
+function nave_enemiga () {
+  if(event.keyCode=='13') {
+    movimiento(),60;
+  }
+  if(x_nave < 0){//aporta límites al recorrido de la imagen 
+    x_nave=0;
+  }
+
+  if(x_nave > 390){//aporta límites al recorrido de la imagen
+    x_nave=390;
+  }
+}
+
+function movimiento () {//modificar. 
+
+  x_nave+=20;
+  lienzo();  
+
+}
+
+</script>
+
+</head>
+
+<body onkeydown="play()" onload="lienzo()">
+
+<!-- Favicon -->
+    <link href="img/favicon.ico" rel="icon">
+  
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Raleway:400,500,700|Roboto:400,900" rel="stylesheet">
+    
+    <!-- Bootstrap CSS File -->
+    <link href="lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  
+    <!-- Libraries CSS Files -->
+    <link href="lib/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+    
+    <!-- Main Stylesheet File -->
+    <link href="css/style.css" rel="stylesheet">
+
+<!--banner-->
+<header id="header">
+    <div class="container">
+    
+      <div id="logo" class="pull-left">
+        <a href="index.html"><img src="img/CN7.png" alt="" title="" /></img></a>
+      </div>
+        
+      <!--<nav id="nav-menu-container">
+        <ul class="nav-menu">
+          <li><a href="#about">DESARROLLADORES</a></li>
+        </ul>
+      </nav> #nav-menu-container -->
+      
+      <nav class="nav social-nav pull-right hidden-sm-down">
+        <a href="#"><i class="fa fa-twitter"></i></a> <a href="#"><i class="fa fa-facebook"></i></a> <a href="#"><i class="fa fa-linkedin"></i></a> <a href="#"><i class="fa fa-envelope"></i></a>
+      </nav>
+    </div>
+  </header>
+
+  <!--conexión-->
+<br>
+<img id="disparo" src="img/torpedoo.PNG">
+<img id="ima" src="img/nave.PNG">
+<img id="nave_enemiga" src="img/nave.PNG"> 
+<canvas id="myCanvas" width="500" height="500" style="border:3px solid #000000;background-color:#87CEEB;">
+Tu navegador no soporta canvas</canvas> 
+
+</body>
+</html>
